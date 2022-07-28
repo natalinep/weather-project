@@ -102,26 +102,28 @@
 
         <!-- Main Information -->
         <div class="info">
-          <p class="info__city">Lysychansk</p>
+          <p class="info__city" id="city"></p>
           <div class="info__data">
             <div class="info__time">
-              <p class="time">Monday 14:35</p>
-              <p class="condition">Light Rain</p>
+              <p class="time">Last updated: <span id="time"></span></p>
+              <p class="condition"></p>
             </div>
             <div class="info__frame">
-              <p class="info__feels">Feels like: 20°C</p>
+              <p class="info__feels">
+                Feels like: <span id="feelsLike"></span>°C
+              </p>
               <div class="info__drop">
                 <i class="fa-solid fa-droplet drop"></i>
-                <p class="humidity">Humidity: 50%</p>
+                <p class="humidity">Humidity: <span id="humidity"></span>%</p>
               </div>
               <p class="info__wind">
                 <i class="fa-solid fa-wind wind"></i>
-                Wind: 1.5 m/s
+                Wind: <span id="wind"></span>m/s
               </p>
             </div>
           </div>
           <div class="info__temperature">
-            <div class="temperature">22°C</div>
+            <div class="temperature"><span id="temperature"></span>°C</div>
             <div class="degree">
               <a href="#" class="celsius">°C</a>
               <a href="#" class="fahrenheit">°F</a>

@@ -173,7 +173,7 @@ p {
   display: block;
   text-align: left;
   font-weight: 600;
-  font-size: 60px;
+  font-size: 50px;
   flex: 0 1 100%;
 }
 
@@ -209,11 +209,13 @@ p {
 .info__drop {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .drop {
   color: blue;
+}
+.humidity {
+  margin-left: 5px;
 }
 
 .info__temperature {
@@ -257,7 +259,7 @@ hr {
 /* Days information  */
 /* ------------------- */
 
-span {
+.day__temperature span {
   opacity: 0.7;
 }
 
@@ -339,7 +341,7 @@ span {
   }
   /* Main information */
   .info__city {
-    font-size: 40px;
+    font-size: 30px;
     line-height: 1.35;
     overflow: hidden;
   }
@@ -397,7 +399,7 @@ span {
   }
   /* Main information */
   .info__city {
-    font-size: 35px;
+    font-size: 25px;
     line-height: 1.25;
     text-align: center;
     margin-top: 10px;
