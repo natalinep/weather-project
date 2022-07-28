@@ -236,6 +236,12 @@ p {
   background: transparent;
   font-size: 20px;
 }
+.active {
+  color: #000;
+}
+.active:hover {
+  cursor: default;
+}
 
 .info__img > i {
   margin: 0px 0 0 -50px;
@@ -344,6 +350,7 @@ hr {
     font-size: 30px;
     line-height: 1.35;
     overflow: hidden;
+    margin-left: 4vw;
   }
   .info__data {
     padding: 0;
