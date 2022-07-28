@@ -53,7 +53,8 @@ function showRelevantInformation(response) {
   currentCity.innerHTML = response.data.name;
 
   let infoFeels = document.querySelector("#feelsLike");
-  infoFeels.innerHTML = Math.round(response.data.main.feels_like);
+  feelsLike = Math.round(response.data.main.feels_like);
+  infoFeels.innerHTML = feelsLike;
 
   let infoHumidity = document.querySelector("#humidity");
   infoHumidity.innerHTML = Math.round(response.data.main.humidity);
@@ -66,6 +67,105 @@ function showRelevantInformation(response) {
 
   let date = document.querySelector("#time");
   date.innerHTML = currentDate(response.data.dt * 1000);
+  console.log(response.data);
+
+  let iconElement = document.querySelector("#icon");
+  if (response.data.weather[0].icon === "01d") {
+    iconElement.setAttribute(
+      "src",
+      "https://cdn-icons-png.flaticon.com/512/1163/1163662.png"
+    );
+  }
+  if (response.data.weather[0].icon === "01n") {
+    iconElement.setAttribute(
+      "src",
+      "https://cdn-icons-png.flaticon.com/512/581/581601.png"
+    );
+  }
+
+  if (response.data.weather[0].icon === "02d") {
+    iconElement.setAttribute(
+      "src",
+      "https://cdn-icons-png.flaticon.com/512/1146/1146856.png"
+    );
+  }
+  if (response.data.weather[0].icon === "02n") {
+    iconElement.setAttribute(
+      "src",
+      "https://cdn-icons-png.flaticon.com/512/1146/1146900.png"
+    );
+  }
+  if (
+    response.data.weather[0].icon === "03d" ||
+    response.data.weather[0].icon === "03n"
+  ) {
+    iconElement.setAttribute(
+      "src",
+      "https://cdn-icons-png.flaticon.com/512/1146/1146880.png"
+    );
+  }
+  if (
+    response.data.weather[0].icon === "04d" ||
+    response.data.weather[0].icon === "04n"
+  ) {
+    iconElement.setAttribute(
+      "src",
+      "https://cdn-icons-png.flaticon.com/512/1146/1146881.png"
+    );
+  }
+  if (
+    response.data.weather[0].icon === "09d" ||
+    response.data.weather[0].icon === "09n"
+  ) {
+    iconElement.setAttribute(
+      "src",
+      "https://cdn-icons-png.flaticon.com/512/1146/1146858.png"
+    );
+  }
+  if (response.data.weather[0].icon === "10d") {
+    iconElement.setAttribute(
+      "src",
+      "https://cdn-icons-png.flaticon.com/512/1146/1146915.png"
+    );
+  }
+  if (response.data.weather[0].icon === "10n") {
+    iconElement.setAttribute(
+      "src",
+      "https://cdn-icons-png.flaticon.com/512/5903/5903792.png"
+    );
+  }
+  if (
+    response.data.weather[0].icon === "11d" ||
+    response.data.weather[0].icon === "11n"
+  ) {
+    iconElement.setAttribute(
+      "src",
+      "https://cdn-icons-png.flaticon.com/512/1146/1146861.png"
+    );
+  }
+  if (
+    response.data.weather[0].icon === "13d" ||
+    response.data.weather[0].icon === "13n"
+  ) {
+    iconElement.setAttribute(
+      "src",
+      "https://cdn-icons-png.flaticon.com/512/1146/1146899.png"
+    );
+  }
+  if (
+    response.data.weather[0].icon === "50d" ||
+    response.data.weather[0].icon === "50n"
+  ) {
+    iconElement.setAttribute(
+      "src",
+      "https://cdn-icons-png.flaticon.com/512/305/305834.png"
+    );
+  }
+  // iconElement.setAttribute(
+  //   "src",
+  //   `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  // );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
 function getAPI(city) {
@@ -85,29 +185,44 @@ form.addEventListener("click", showCityName);
 
 function displayFahrenheitTemperature(event) {
   event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
 
   celsiusLink.classList.remove("active");
   fahrenheitLink.classList.add("active");
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+
+  let temperatureElement = document.querySelector("#temperature");
+  temperatureElement.innerHTML = Math.round((celsiusTemperature * 9) / 5 + 32);
+
+  let infoFeels = document.querySelector("#feelsLike");
+  infoFeels.innerHTML = Math.round((feelsLike * 9) / 5 + 32);
 
   let degree = document.querySelector("#degree");
   degree.innerHTML = "°F";
+
+  let degreeFeels = document.querySelector("#degreeFeels");
+  degreeFeels.innerHTML = "°F";
 }
 
 function displayCelsiusTemperature(event) {
   event.preventDefault();
+
   celsiusLink.classList.add("active");
   fahrenheitLink.classList.remove("active");
+
   let temperatureElement = document.querySelector("#temperature");
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 
+  let infoFeels = document.querySelector("#feelsLike");
+  infoFeels.innerHTML = Math.round(feelsLike);
+
   let degree = document.querySelector("#degree");
   degree.innerHTML = "°C";
+
+  let degreeFeels = document.querySelector("#degreeFeels");
+  degreeFeels.innerHTML = "°C";
 }
 
 let celsiusTemperature = null;
+let feelsLike = null;
 
 let fahrenheitLink = document.querySelector(".fahrenheit");
 fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
