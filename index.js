@@ -44,32 +44,11 @@ function currentDate(timestamp) {
   return day + " " + hours + ":" + minutes;
 }
 
-function showRelevantInformation(response) {
-  let currentTemp = document.querySelector("#temperature");
-  celsiusTemperature = Math.round(response.data.main.temp);
-  currentTemp.innerHTML = celsiusTemperature;
-
-  let currentCity = document.querySelector("#city");
-  currentCity.innerHTML = response.data.name;
-
-  let infoFeels = document.querySelector("#feelsLike");
-  feelsLike = Math.round(response.data.main.feels_like);
-  infoFeels.innerHTML = feelsLike;
-
-  let infoHumidity = document.querySelector("#humidity");
-  infoHumidity.innerHTML = Math.round(response.data.main.humidity);
-
-  let infoWind = document.querySelector("#wind");
-  infoWind.innerHTML = Math.round(response.data.wind.speed);
-
-  let condition = document.querySelector(".condition");
-  condition.innerHTML = response.data.weather[0].main;
-
-  let date = document.querySelector("#time");
-  date.innerHTML = currentDate(response.data.dt * 1000);
-  console.log(response.data);
-
+function getRelevantImg(response) {
   let iconElement = document.querySelector("#icon");
+
+  iconElement.setAttribute("alt", response.data.weather[0].description);
+
   if (response.data.weather[0].icon === "01d") {
     iconElement.setAttribute(
       "src",
@@ -161,11 +140,34 @@ function showRelevantInformation(response) {
       "https://cdn-icons-png.flaticon.com/512/305/305834.png"
     );
   }
-  // iconElement.setAttribute(
-  //   "src",
-  //   `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  // );
-  iconElement.setAttribute("alt", response.data.weather[0].description);
+}
+
+function showRelevantInformation(response) {
+  let currentTemp = document.querySelector("#temperature");
+  celsiusTemperature = Math.round(response.data.main.temp);
+  currentTemp.innerHTML = celsiusTemperature;
+
+  let currentCity = document.querySelector("#city");
+  currentCity.innerHTML = response.data.name;
+
+  let infoFeels = document.querySelector("#feelsLike");
+  feelsLike = Math.round(response.data.main.feels_like);
+  infoFeels.innerHTML = feelsLike;
+
+  let infoHumidity = document.querySelector("#humidity");
+  infoHumidity.innerHTML = Math.round(response.data.main.humidity);
+
+  let infoWind = document.querySelector("#wind");
+  infoWind.innerHTML = Math.round(response.data.wind.speed);
+
+  let condition = document.querySelector(".condition");
+  condition.innerHTML = response.data.weather[0].main;
+
+  let date = document.querySelector("#time");
+  date.innerHTML = currentDate(response.data.dt * 1000);
+  console.log(response.data);
+
+  getRelevantImg(response);
 }
 
 function getAPI(city) {
