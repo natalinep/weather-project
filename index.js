@@ -1,19 +1,3 @@
-function findPosition(event) {
-  event.preventDefault();
-  function retrievePosition(position) {
-    let apiKey = "3f08bfa61b58c72a1282fd754e1f43b2";
-    let lat = position.coords.latitude;
-    let lon = position.coords.longitude;
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-    axios.get(apiUrl).then(showRelevantInformation);
-  }
-
-  navigator.geolocation.getCurrentPosition(retrievePosition);
-}
-
-let searchLocation = document.querySelector(".search__location");
-searchLocation.addEventListener("click", findPosition);
-
 function currentDate(timestamp) {
   let now = new Date(timestamp);
   function zero(value) {
@@ -187,9 +171,11 @@ function displayForecast(response) {
         <img src="${getRelevantIcon(
           forecastDay.weather[0].icon
         )}" alt="" class="weather__icon" id="icon" />
-      <p class="day__temperature">${Math.round(
-        forecastDay.temp.max
-      )}° <span>${Math.round(forecastDay.temp.min)}°</span></p>
+      <p class="day__temperature"><span id="max__${index}">${Math.round(
+          forecastDay.temp.max
+        )}</span>° <span id="min__${index}" class="minDegree">${Math.round(
+          forecastDay.temp.min
+        )}</span>°</p>
     </div></div>
     `;
     }
@@ -202,7 +188,7 @@ function displayForecast(response) {
 function getForecast(coordinates) {
   let apiKey = "3f08bfa61b58c72a1282fd754e1f43b2";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
-  https: axios.get(apiUrl).then(displayForecast);
+  axios.get(apiUrl).then(displayForecast);
 }
 
 function showRelevantInformation(response) {
@@ -211,7 +197,8 @@ function showRelevantInformation(response) {
   currentTemp.innerHTML = celsiusTemperature;
 
   let currentCity = document.querySelector("#city");
-  currentCity.innerHTML = response.data.name;
+  currentCityIs = response.data.name;
+  currentCity.innerHTML = currentCityIs;
 
   let infoFeels = document.querySelector("#feelsLike");
   feelsLike = Math.round(response.data.main.feels_like);
@@ -228,6 +215,7 @@ function showRelevantInformation(response) {
 
   let date = document.querySelector("#time");
   date.innerHTML = currentDate(response.data.dt * 1000);
+  console.log(response.data);
 
   let iconElement = document.querySelector("#icon");
   iconElement.setAttribute("alt", response.data.weather[0].description);
@@ -250,8 +238,136 @@ function showCityName(event) {
   getAPI(cityInput);
 }
 
-let form = document.querySelector(".search__button");
-form.addEventListener("click", showCityName);
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", showCityName);
+
+function backForecastDegree() {
+  function forecastDisplay(response) {
+    let maxFirst = document.querySelector("#max__0");
+    let minFirst = document.querySelector("#min__0");
+
+    let maxSec = document.querySelector("#max__1");
+    let minSec = document.querySelector("#min__1");
+
+    let maxThird = document.querySelector("#max__2");
+    let minThird = document.querySelector("#min__2");
+
+    let maxForth = document.querySelector("#max__3");
+    let minForth = document.querySelector("#min__3");
+
+    let maxFives = document.querySelector("#max__4");
+    let minFives = document.querySelector("#min__4");
+
+    maxFirst.innerHTML = Math.round(response.data.daily[0].temp.max);
+    maxSec.innerHTML = Math.round(response.data.daily[1].temp.max);
+    maxThird.innerHTML = Math.round(response.data.daily[2].temp.max);
+    maxForth.innerHTML = Math.round(response.data.daily[3].temp.max);
+    maxFives.innerHTML = Math.round(response.data.daily[4].temp.max);
+
+    minFirst.innerHTML = Math.round(response.data.daily[0].temp.min);
+    minSec.innerHTML = Math.round(response.data.daily[1].temp.min);
+    minThird.innerHTML = Math.round(response.data.daily[2].temp.min);
+    minForth.innerHTML = Math.round(response.data.daily[3].temp.min);
+    minFives.innerHTML = Math.round(response.data.daily[4].temp.min);
+  }
+  function forecastGet(coordinates) {
+    let apiKey = "3f08bfa61b58c72a1282fd754e1f43b2";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(forecastDisplay);
+  }
+  function relevantInformation(response) {
+    forecastGet(response.data.coord);
+  }
+  function apiGet(city) {
+    let apiKey = "3f08bfa61b58c72a1282fd754e1f43b2";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+    axios.get(apiUrl).then(relevantInformation);
+  }
+  function cityName() {
+    let inputCity = document.querySelector(".search__field").value;
+    if (inputCity.length > 0) {
+      apiGet(inputCity);
+    } else {
+      apiGet(currentCityIs);
+    }
+  }
+  cityName();
+}
+
+function changeForecastDegree() {
+  function forecastDisplay(response) {
+    let maxFirst = document.querySelector("#max__0");
+    let minFirst = document.querySelector("#min__0");
+
+    let maxSec = document.querySelector("#max__1");
+    let minSec = document.querySelector("#min__1");
+
+    let maxThird = document.querySelector("#max__2");
+    let minThird = document.querySelector("#min__2");
+
+    let maxForth = document.querySelector("#max__3");
+    let minForth = document.querySelector("#min__3");
+
+    let maxFives = document.querySelector("#max__4");
+    let minFives = document.querySelector("#min__4");
+
+    maxFirst.innerHTML = Math.round(
+      (response.data.daily[0].temp.max * 9) / 5 + 32
+    );
+    maxSec.innerHTML = Math.round(
+      (response.data.daily[1].temp.max * 9) / 5 + 32
+    );
+    maxThird.innerHTML = Math.round(
+      (response.data.daily[2].temp.max * 9) / 5 + 32
+    );
+    maxForth.innerHTML = Math.round(
+      (response.data.daily[3].temp.max * 9) / 5 + 32
+    );
+    maxFives.innerHTML = Math.round(
+      (response.data.daily[4].temp.max * 9) / 5 + 32
+    );
+
+    minFirst.innerHTML = Math.round(
+      (response.data.daily[0].temp.min * 9) / 5 + 32
+    );
+    minSec.innerHTML = Math.round(
+      (response.data.daily[1].temp.min * 9) / 5 + 32
+    );
+    minThird.innerHTML = Math.round(
+      (response.data.daily[2].temp.min * 9) / 5 + 32
+    );
+    minForth.innerHTML = Math.round(
+      (response.data.daily[3].temp.min * 9) / 5 + 32
+    );
+    minFives.innerHTML = Math.round(
+      (response.data.daily[4].temp.min * 9) / 5 + 32
+    );
+  }
+  function forecastGet(coordinates) {
+    let apiKey = "3f08bfa61b58c72a1282fd754e1f43b2";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(forecastDisplay);
+  }
+  function relevantInformation(response) {
+    forecastGet(response.data.coord);
+  }
+  function apiGet(city) {
+    let apiKey = "3f08bfa61b58c72a1282fd754e1f43b2";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+    axios.get(apiUrl).then(relevantInformation);
+  }
+  function cityName() {
+    let inputCity = document.querySelector(".search__field").value;
+    if (inputCity.length > 0) {
+      apiGet(inputCity);
+    } else {
+      apiGet(currentCityIs);
+    }
+  }
+  cityName();
+}
 
 function displayFahrenheitTemperature(event) {
   event.preventDefault();
@@ -270,6 +386,8 @@ function displayFahrenheitTemperature(event) {
 
   let degreeFeels = document.querySelector("#degreeFeels");
   degreeFeels.innerHTML = "°F";
+
+  changeForecastDegree();
 }
 
 function displayCelsiusTemperature(event) {
@@ -289,8 +407,11 @@ function displayCelsiusTemperature(event) {
 
   let degreeFeels = document.querySelector("#degreeFeels");
   degreeFeels.innerHTML = "°C";
+
+  backForecastDegree();
 }
 
+let currentCityIs = "";
 let celsiusTemperature = null;
 let feelsLike = null;
 
@@ -299,5 +420,22 @@ fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
 let celsiusLink = document.querySelector(".celsius");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
+
+function findPosition(event) {
+  event.preventDefault();
+  function currentPosition(position) {
+    let apiKey = "3f08bfa61b58c72a1282fd754e1f43b2";
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+
+    axios.get(apiUrl).then(showRelevantInformation);
+  }
+
+  navigator.geolocation.getCurrentPosition(currentPosition);
+}
+
+let searchLocation = document.querySelector(".search__location");
+searchLocation.addEventListener("click", findPosition);
 
 getAPI("Kyiv");

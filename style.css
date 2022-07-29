@@ -70,6 +70,8 @@ a:visited {
 
 a:hover {
   text-decoration: none;
+  color: #000;
+  cursor: default;
 }
 
 ul li {
@@ -119,10 +121,15 @@ body {
 
 .search {
   display: flex;
-  justify-content: space-between;
   margin: 20px 20px 5px;
 }
-
+.search__form {
+  display: flex;
+  min-width: 50px;
+}
+.search__field {
+  margin: 0 3vw;
+}
 .search__location {
   padding: 3px 0;
   background: transparent;
@@ -265,7 +272,7 @@ hr {
 /* Days information  */
 /* ------------------- */
 
-.day__temperature span {
+.minDegree {
   opacity: 0.7;
 }
 

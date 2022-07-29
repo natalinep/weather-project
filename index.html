@@ -23,20 +23,22 @@
       <!-- Frame -->
       <div class="frame">
         <!-- Search Form  -->
-        <form class="search" id="search-form">
+        <div class="search">
           <button class="search__location">
             <i class="fa-solid fa-map-pin location"></i>
           </button>
-          <input
-            class="form-control search__field"
-            type="search"
-            name="city"
-            autofocus="on"
-            autocomplete="off"
-            placeholder="Enter City"
-          />
-          <input class="search__button" type="submit" value="Search" />
-        </form>
+          <form class="search__form" id="search-form">
+            <input
+              class="form-control search__field"
+              type="search"
+              name="city"
+              autofocus="on"
+              autocomplete="off"
+              placeholder="Enter City"
+            />
+            <input class="search__button" type="submit" value="Search" />
+          </form>
+        </div>
 
         <!-- Main Information -->
         <div class="info">
