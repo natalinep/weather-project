@@ -269,7 +269,7 @@ hr {
   opacity: 0.7;
 }
 
-.day {
+.days-forecast {
   display: flex;
   justify-content: space-around;
 }
@@ -292,9 +292,9 @@ hr {
   box-shadow: rgb(0 0 0 / 8%) 5px 8px 8px 0;
 }
 
-.sun__icon {
-  width: 50px;
-  margin: -40px 0;
+.weather__icon {
+  margin: 10px 5px;
+  width: 60px;
 }
 
 .day__temperature {
@@ -359,6 +359,9 @@ hr {
     justify-content: space-between;
     margin-left: 4vw;
   }
+  .time {
+    font-size: 14px;
+  }
   .info__frame {
     margin: 0;
     font-size: 14px;
@@ -380,7 +383,7 @@ hr {
 
   .sun__icon.big {
     width: 100px;
-    margin: 0;
+    margin: 20px 0;
   }
   /* Days information */
   .day__frame {
@@ -390,9 +393,8 @@ hr {
     margin: 0;
     font-size: 14px;
   }
-  .sun__icon {
-    width: 30px;
-    margin: -50px 0;
+  .weather__icon {
+    width: 10vw;
   }
 }
 
@@ -449,6 +451,9 @@ hr {
 
   .info__img {
     margin: 60px 0 -10px -100px;
+  }
+  .weather__icon {
+    margin: 10px 10px;
   }
 
   /* Days information */

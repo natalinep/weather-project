@@ -44,6 +44,46 @@ function currentDate(timestamp) {
   return day + " " + hours + ":" + minutes;
 }
 
+function getRelevantIcon(icon) {
+  if (icon === "01d") {
+    return "https://cdn-icons-png.flaticon.com/512/1163/1163662.png";
+  }
+  if (icon === "01n") {
+    return "https://cdn-icons-png.flaticon.com/512/581/581601.png";
+  }
+
+  if (icon === "02d") {
+    return "https://cdn-icons-png.flaticon.com/512/1146/1146856.png";
+  }
+  if (icon === "02n") {
+    return "https://cdn-icons-png.flaticon.com/512/1146/1146900.png";
+  }
+  if (icon === "03d" || icon === "03n") {
+    return "https://cdn-icons-png.flaticon.com/512/1146/1146880.png";
+  }
+  if (icon === "04d" || icon === "04n") {
+    return "https://cdn-icons-png.flaticon.com/512/1146/1146881.png";
+  }
+  if (icon === "09d" || icon === "09n") {
+    return "https://cdn-icons-png.flaticon.com/512/1146/1146858.png";
+  }
+  if (icon === "10d") {
+    return "https://cdn-icons-png.flaticon.com/512/1146/1146915.png";
+  }
+  if (icon === "10n") {
+    return "https://cdn-icons-png.flaticon.com/512/5903/5903792.png";
+  }
+  if (icon === "11d" || icon === "11n") {
+    return "https://cdn-icons-png.flaticon.com/512/1146/1146861.png";
+  }
+  if (icon === "13d" || icon === "13n") {
+    return "https://cdn-icons-png.flaticon.com/512/1146/1146899.png";
+  }
+  if (icon === "50d" || icon === "50n") {
+    return "https://cdn-icons-png.flaticon.com/512/305/305834.png";
+  }
+}
+
 function getRelevantImg(icon) {
   let iconElement = document.querySelector("#icon");
   if (icon === "01d") {
@@ -121,6 +161,51 @@ function getRelevantImg(icon) {
   }
 }
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
+
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="days-forecast">`;
+
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `
+        <div class="day__block">
+        <p class="day">${formatDay(forecastDay.dt)}</p>
+        <div class="day__frame">  
+        <img src="${getRelevantIcon(
+          forecastDay.weather[0].icon
+        )}" alt="" class="weather__icon" id="icon" />
+      <p class="day__temperature">${Math.round(
+        forecastDay.temp.max
+      )}° <span>${Math.round(forecastDay.temp.min)}°</span></p>
+    </div></div>
+    `;
+      // getRelevantImg(forecastDay.weather[0].icon);
+    }
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+function getForecast(coordinates) {
+  let apiKey = "3f08bfa61b58c72a1282fd754e1f43b2";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  https: axios.get(apiUrl).then(displayForecast);
+}
+
 function showRelevantInformation(response) {
   let currentTemp = document.querySelector("#temperature");
   celsiusTemperature = Math.round(response.data.main.temp);
@@ -149,11 +234,14 @@ function showRelevantInformation(response) {
   iconElement.setAttribute("alt", response.data.weather[0].description);
 
   getRelevantImg(response.data.weather[0].icon);
+
+  getForecast(response.data.coord);
 }
 
 function getAPI(city) {
   let apiKey = "3f08bfa61b58c72a1282fd754e1f43b2";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
   axios.get(apiUrl).then(showRelevantInformation);
 }
 
