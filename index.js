@@ -44,97 +44,76 @@ function currentDate(timestamp) {
   return day + " " + hours + ":" + minutes;
 }
 
-function getRelevantImg(response) {
+function getRelevantImg(icon) {
   let iconElement = document.querySelector("#icon");
-
-  iconElement.setAttribute("alt", response.data.weather[0].description);
-
-  if (response.data.weather[0].icon === "01d") {
+  if (icon === "01d") {
     iconElement.setAttribute(
       "src",
       "https://cdn-icons-png.flaticon.com/512/1163/1163662.png"
     );
   }
-  if (response.data.weather[0].icon === "01n") {
+  if (icon === "01n") {
     iconElement.setAttribute(
       "src",
       "https://cdn-icons-png.flaticon.com/512/581/581601.png"
     );
   }
 
-  if (response.data.weather[0].icon === "02d") {
+  if (icon === "02d") {
     iconElement.setAttribute(
       "src",
       "https://cdn-icons-png.flaticon.com/512/1146/1146856.png"
     );
   }
-  if (response.data.weather[0].icon === "02n") {
+  if (icon === "02n") {
     iconElement.setAttribute(
       "src",
       "https://cdn-icons-png.flaticon.com/512/1146/1146900.png"
     );
   }
-  if (
-    response.data.weather[0].icon === "03d" ||
-    response.data.weather[0].icon === "03n"
-  ) {
+  if (icon === "03d" || icon === "03n") {
     iconElement.setAttribute(
       "src",
       "https://cdn-icons-png.flaticon.com/512/1146/1146880.png"
     );
   }
-  if (
-    response.data.weather[0].icon === "04d" ||
-    response.data.weather[0].icon === "04n"
-  ) {
+  if (icon === "04d" || icon === "04n") {
     iconElement.setAttribute(
       "src",
       "https://cdn-icons-png.flaticon.com/512/1146/1146881.png"
     );
   }
-  if (
-    response.data.weather[0].icon === "09d" ||
-    response.data.weather[0].icon === "09n"
-  ) {
+  if (icon === "09d" || icon === "09n") {
     iconElement.setAttribute(
       "src",
       "https://cdn-icons-png.flaticon.com/512/1146/1146858.png"
     );
   }
-  if (response.data.weather[0].icon === "10d") {
+  if (icon === "10d") {
     iconElement.setAttribute(
       "src",
       "https://cdn-icons-png.flaticon.com/512/1146/1146915.png"
     );
   }
-  if (response.data.weather[0].icon === "10n") {
+  if (icon === "10n") {
     iconElement.setAttribute(
       "src",
       "https://cdn-icons-png.flaticon.com/512/5903/5903792.png"
     );
   }
-  if (
-    response.data.weather[0].icon === "11d" ||
-    response.data.weather[0].icon === "11n"
-  ) {
+  if (icon === "11d" || icon === "11n") {
     iconElement.setAttribute(
       "src",
       "https://cdn-icons-png.flaticon.com/512/1146/1146861.png"
     );
   }
-  if (
-    response.data.weather[0].icon === "13d" ||
-    response.data.weather[0].icon === "13n"
-  ) {
+  if (icon === "13d" || icon === "13n") {
     iconElement.setAttribute(
       "src",
       "https://cdn-icons-png.flaticon.com/512/1146/1146899.png"
     );
   }
-  if (
-    response.data.weather[0].icon === "50d" ||
-    response.data.weather[0].icon === "50n"
-  ) {
+  if (icon === "50d" || icon === "50n") {
     iconElement.setAttribute(
       "src",
       "https://cdn-icons-png.flaticon.com/512/305/305834.png"
@@ -165,9 +144,11 @@ function showRelevantInformation(response) {
 
   let date = document.querySelector("#time");
   date.innerHTML = currentDate(response.data.dt * 1000);
-  console.log(response.data);
 
-  getRelevantImg(response);
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute("alt", response.data.weather[0].description);
+
+  getRelevantImg(response.data.weather[0].icon);
 }
 
 function getAPI(city) {
