@@ -192,7 +192,6 @@ function displayForecast(response) {
       )}° <span>${Math.round(forecastDay.temp.min)}°</span></p>
     </div></div>
     `;
-      // getRelevantImg(forecastDay.weather[0].icon);
     }
   });
 
