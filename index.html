@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
+    <!-- Bootstrap -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
@@ -25,16 +26,16 @@
         <!-- Search Form  -->
         <div class="search">
           <button class="search__location">
-            <i class="fa-solid fa-map-pin location"></i>
+            <i class="fa-solid fa-map-pin location"></i><span>Location</span>
           </button>
           <form class="search__form" id="search-form">
             <input
-              class="form-control search__field"
+              class="form-control search__bar"
               type="search"
               name="city"
               autofocus="on"
               autocomplete="off"
-              placeholder="Enter City"
+              placeholder="Enter your city"
             />
             <input class="search__button" type="submit" value="Search" />
           </form>
@@ -42,47 +43,92 @@
 
         <!-- Main Information -->
         <div class="info">
-          <p class="info__city" id="city"></p>
-          <div class="info__data">
-            <div class="info__time">
-              <p class="time">Last updated: <span id="time"></span></p>
-              <p class="condition"></p>
+          <div class="row">
+            <div class="col-6">
+              <ul>
+                <li class="info__img">
+                  <img src="" alt="" class="sun__icon big" id="icon" />
+                </li>
+                <li>
+                  <p class="condition"></p>
+                </li>
+              </ul>
             </div>
-            <div class="info__frame">
-              <p class="info__feels">
-                Feels like: <span id="feelsLike"></span
-                ><span id="degreeFeels">°C</span>
-              </p>
-              <div class="info__drop">
-                <i class="fa-solid fa-droplet drop"></i>
-                <p class="humidity">Humidity: <span id="humidity"></span>%</p>
-              </div>
-              <p class="info__wind">
-                <i class="fa-solid fa-wind wind"></i>
-                Wind: <span id="wind"></span>m/s
-              </p>
+            <div class="col-6">
+              <ul>
+                <li>
+                  <div class="info__temperature">
+                    <span id="temperature"></span>
+                    <a href="#" class="celsius active">°C</a>
+                    <a href="#" class="fahrenheit">°F</a>
+                  </div>
+                </li>
+                <li>
+                  <p class="info__city">
+                    <i class="fa-solid fa-location-dot current_city"></i>
+                    <span id="city"></span>
+                  </p>
+                </li>
+                <li>
+                  <p class="time"><span id="time"></span></p>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="info__temperature">
-            <div class="temperature">
-              <span id="temperature"></span><span id="degree">°C</span>
+          <div class="row info__description">
+            <!-- <div class="info__description"> -->
+            <div
+              class="col-2 info__feels"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Feels like"
+            >
+              <ul>
+                <li>
+                  <i class="fa-solid fa-temperature-half temperature-icon"></i>
+                </li>
+                <li>
+                  <p><span id="feelsLike"></span>°</p>
+                </li>
+              </ul>
             </div>
-            <div class="degree">
-              <a href="#" class="celsius active">°C</a>
-              <a href="#" class="fahrenheit">°F</a>
+            <div
+              class="col-2 info__humidity"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Humidity"
+            >
+              <ul>
+                <li>
+                  <i class="fa-solid fa-droplet drop"></i>
+                </li>
+                <li>
+                  <p><span id="humidity"></span>%</p>
+                </li>
+              </ul>
             </div>
-          </div>
-          <div class="info__img">
-            <img src="" alt="" class="sun__icon big" id="icon" />
+            <div
+              class="col-2 info__wind"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Wind speed"
+            >
+              <ul>
+                <li>
+                  <i class="fa-solid fa-wind wind"></i>
+                </li>
+                <li>
+                  <p><span id="wind"></span>m/s</p>
+                </li>
+              </ul>
+            </div>
+            <!-- </div> -->
           </div>
         </div>
         <!-- end of main information-->
 
-        <!-- Horizontal line -->
-        <hr class="line" />
-
         <!-- Days Information -->
-        <div class="day" id="forecast"></div>
+        <div class="days" id="forecast"></div>
       </div>
       <!-- end of frame-->
 
@@ -100,6 +146,7 @@
     </div>
     <!-- end of container-->
 
+    <!-- SVG img -->
     <script
       src="https://kit.fontawesome.com/da26e7b59f.js"
       crossorigin="anonymous"

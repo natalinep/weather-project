@@ -166,8 +166,6 @@ function displayForecast(response) {
         forecastHTML +
         `
         <div class="day__block">
-        <p class="day">${formatDay(forecastDay.dt)}</p>
-        <div class="day__frame">  
         <img src="${getRelevantIcon(
           forecastDay.weather[0].icon
         )}" alt="" class="weather__icon" id="icon" />
@@ -176,7 +174,8 @@ function displayForecast(response) {
         )}</span>° <span id="min__${index}" class="minDegree">${Math.round(
           forecastDay.temp.min
         )}</span>°</p>
-    </div></div>
+        <p class="day">${formatDay(forecastDay.dt)}</p>
+    </div>
     `;
     }
   });
@@ -215,7 +214,6 @@ function showRelevantInformation(response) {
 
   let date = document.querySelector("#time");
   date.innerHTML = currentDate(response.data.dt * 1000);
-  console.log(response.data);
 
   let iconElement = document.querySelector("#icon");
   iconElement.setAttribute("alt", response.data.weather[0].description);
@@ -234,7 +232,7 @@ function getAPI(city) {
 
 function showCityName(event) {
   event.preventDefault();
-  let cityInput = document.querySelector(".search__field").value;
+  let cityInput = document.querySelector(".search__bar").value;
   getAPI(cityInput);
 }
 
@@ -285,7 +283,7 @@ function backForecastDegree() {
     axios.get(apiUrl).then(relevantInformation);
   }
   function cityName() {
-    let inputCity = document.querySelector(".search__field").value;
+    let inputCity = document.querySelector(".search__bar").value;
     if (inputCity.length > 0) {
       apiGet(inputCity);
     } else {
@@ -359,7 +357,7 @@ function changeForecastDegree() {
     axios.get(apiUrl).then(relevantInformation);
   }
   function cityName() {
-    let inputCity = document.querySelector(".search__field").value;
+    let inputCity = document.querySelector(".search__bar").value;
     if (inputCity.length > 0) {
       apiGet(inputCity);
     } else {
@@ -381,12 +379,6 @@ function displayFahrenheitTemperature(event) {
   let infoFeels = document.querySelector("#feelsLike");
   infoFeels.innerHTML = Math.round((feelsLike * 9) / 5 + 32);
 
-  let degree = document.querySelector("#degree");
-  degree.innerHTML = "°F";
-
-  let degreeFeels = document.querySelector("#degreeFeels");
-  degreeFeels.innerHTML = "°F";
-
   changeForecastDegree();
 }
 
@@ -401,12 +393,6 @@ function displayCelsiusTemperature(event) {
 
   let infoFeels = document.querySelector("#feelsLike");
   infoFeels.innerHTML = Math.round(feelsLike);
-
-  let degree = document.querySelector("#degree");
-  degree.innerHTML = "°C";
-
-  let degreeFeels = document.querySelector("#degreeFeels");
-  degreeFeels.innerHTML = "°C";
 
   backForecastDegree();
 }
