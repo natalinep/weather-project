@@ -28,6 +28,7 @@ li {
   border: 1px solid rgba(255, 255, 255, 0.01);
   border-radius: 10px;
   box-shadow: rgb(0 0 0 / 34%) 10px 10px 20px 0;
+  -webkit-backdrop-filter: blur(13px) brightness(110%);
 }
 
 /* Search Form */
@@ -72,7 +73,6 @@ li {
   padding: 3px 20px;
   border-radius: 10px;
   box-shadow: rgb(0 0 0 / 8%) 3px 3px 10px 0;
-  color: #fff;
 }
 
 /* Main information */
