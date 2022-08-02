@@ -2,6 +2,7 @@ body {
   height: 85%;
   background: url("weather.jpg") 0 0 / 150% 150% no-repeat;
   color: #fff;
+  font-family: "Raleway", sans-serif;
 }
 ul {
   margin: 0;
@@ -203,7 +204,7 @@ a:hover {
 
 .day__block {
   text-align: center;
-  padding: 0 4.5vw 5px;
+  padding: 13px 50px;
   background: transparent;
   overflow: hidden;
 
@@ -221,7 +222,7 @@ a:hover {
 }
 
 .weather__icon {
-  margin: 10px 5px;
+  /* margin: 10px 5px; */
   width: 60px;
 }
 
@@ -238,25 +239,18 @@ a:hover {
   margin-top: 10px;
 }
 .author a {
-  color: rgba(255, 255, 255, 0.9);
-  text-decoration: none;
+  color: #fff;
+}
+.author a:hover {
+  text-decoration: underline;
 }
 
 /* Media */
 /* ------------------- */
 
-@media (max-width: 993px) {
-  .day__temperature {
-    margin: 10px -20px;
-  }
-  .weather__icon {
-    margin: 10px -20px;
-  }
+@media (max-width: 991px) {
   .day__block {
-    padding: 0 6vw 5px;
-  }
-  .day {
-    margin: 0 -10px;
+    padding: 13px 40px;
   }
 }
 
@@ -291,7 +285,7 @@ a:hover {
   }
   .day__temperature {
     font-size: 14px;
-    margin: 10px -25px;
+    /* margin: 10px -25px; */
   }
 
   .weather__icon {
@@ -300,8 +294,8 @@ a:hover {
   .info {
     margin: 30px 0 0;
   }
-  .day {
-    margin: 0 -20px;
+  .day__block {
+    padding: 13px 5vw;
   }
 }
 
@@ -318,16 +312,18 @@ a:hover {
   .search__button {
     min-width: 80px;
   }
-
-  .weather__icon {
-    margin: 10px -20px;
-  }
-  .day {
-    margin: 0 -20px;
+  .day__block {
+    padding: 13px 5vw;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 577px) {
+  .day__block {
+    padding: 13px 4vw;
+  }
+}
+
+@media (max-width: 481px) {
   .container {
     padding: 0;
   }
@@ -354,55 +350,92 @@ a:hover {
     width: 90px;
   }
   .author {
-    margin-top: -20px;
+    margin-top: -5px;
+  }
+  .day__block {
+    padding: 13px 6vw;
+  }
+  .weather__icon,
+  .day__temperature {
+    margin: 10px -15px;
   }
 }
-/*
-@media (max-width: 480px) {
-  
-  .frame {
-    border: none;
-    background-color: transparent;
-    margin: 10px;
+
+/* Preloader */
+
+.preloader {
+  /*фиксированное позиционирование*/
+  position: fixed;
+  /* координаты положения */
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  /* фоновый цвет элемента */
+  background: rgb(255, 224, 236);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 224, 236, 1) 0%,
+    rgba(214, 212, 223, 1) 27%,
+    rgba(158, 185, 202, 1) 56%,
+    rgba(170, 201, 200, 1) 83%,
+    rgba(115, 162, 66, 1) 100%
+  );
+  /* размещаем блок над всеми элементами на странице (это значение должно быть больше, чем у любого другого позиционированного элемента на странице) */
+  z-index: 1001;
+}
+
+.preloader__row {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  margin-top: -35px;
+  margin-left: -35px;
+  text-align: center;
+  animation: preloader-rotate 2s infinite linear;
+}
+
+.preloader__item {
+  position: absolute;
+  display: inline-block;
+  top: 0;
+  background-color: #fff;
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
+  animation: preloader-bounce 2s infinite ease-in-out;
+}
+
+.preloader__item:last-child {
+  top: auto;
+  bottom: 0;
+  animation-delay: -1s;
+}
+
+@keyframes preloader-rotate {
+  100% {
+    transform: rotate(360deg);
   }
-} */
-/* Main information */
-/* .info__city {
-    font-size: 25px;
-    line-height: 1.25;
-    text-align: center;
-    margin-top: 10px;
-    order: -2;
+}
+
+@keyframes preloader-bounce {
+  0%,
+  100% {
+    transform: scale(0);
   }
 
-  .time {
-    text-align: center;
+  50% {
+    transform: scale(1);
   }
+}
 
-  .info__frame {
-    border: none;
-    box-shadow: none;
-    margin-top: 50px;
-    padding: 0;
-  }
+.loaded_hiding .preloader {
+  transition: 0.3s opacity;
+  opacity: 0;
+}
 
-  .info__temperature {
-    order: -1;
-    align-items: center;
-    margin: 15px 0 0 0;
-    flex: 0 1 100%;
-  }
-
-  .weather__icon {
-    margin: 10px 10px;
-  } */
-
-/* Days information */
-/* 
-  .day__temperature {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 0 4vw;
-  } */
-/* } */
+.loaded .preloader {
+  display: none;
+}
